@@ -501,7 +501,9 @@ public class SubstanceCoreUtilities {
 
             // next step, check AWTUtilities capabilities
             if (globalRoundingEnable) {
-                globalRoundingEnable = AWTUtilities.isTranslucencySupported(AWTUtilities.Translucency.PERPIXEL_TRANSPARENT);
+                globalRoundingEnable = GraphicsEnvironment.getLocalGraphicsEnvironment()
+                        .getDefaultScreenDevice()
+                        .isWindowTranslucencySupported(GraphicsDevice.WindowTranslucency.PERPIXEL_TRANSLUCENT);
             }
 
             // finally, add one listener to listen to the UIManager defaults value when the default changes.

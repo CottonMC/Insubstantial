@@ -18,8 +18,8 @@ subprojects {
   version = '7.3.1-SNAPSHOT'
   ext.versionKey = "7.3-destroyer"
 
-  sourceCompatibility = 1.6
-  targetCompatibility = 1.6
+  sourceCompatibility = 1.8
+  targetCompatibility = 1.8
 
   configurations {
     maven { extendsFrom archives }
@@ -111,10 +111,6 @@ subprojects {
 task githubDist(type: Zip) {
   archiveName = "insubstantial-libraries-${project.version}.zip"
   from subprojects*.configurations['distro']*.allArtifacts.files
-}
-
-task wrapper(type: Wrapper) {
-  gradleVersion = '1.0-rc-3'
 }
 
 def checkPasswords() {

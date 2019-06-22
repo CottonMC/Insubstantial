@@ -2202,7 +2202,7 @@ public abstract class SubstanceLookAndFeel extends BasicLookAndFeel {
 
 			// file chooser strings go to the main UIManager table
             for (ResourceBundle bundle : new ResourceBundle[] {
-                    ResourceBundle.getBundle("com.sun.swing.internal.plaf.metal.resources.metal"),
+                    //ResourceBundle.getBundle("com.sun.swing.internal.plaf.metal.resources.metal"),
                     SubstanceLookAndFeel.getLabelBundle()
             }) {
                 Enumeration<String> keyEn = bundle.getKeys();
