@@ -43,7 +43,6 @@ import javax.swing.*;
 import javax.swing.plaf.*;
 import javax.swing.text.JTextComponent;
 
-import com.sun.awt.AWTUtilities;
 import org.pushingpixels.lafwidget.LafWidgetUtilities;
 import org.pushingpixels.lafwidget.utils.TrackableThread;
 import org.pushingpixels.substance.api.*;
@@ -499,7 +498,7 @@ public class SubstanceCoreUtilities {
                 }
             });
 
-            // next step, check AWTUtilities capabilities
+            // next step, check translucency support
             if (globalRoundingEnable) {
                 globalRoundingEnable = GraphicsEnvironment.getLocalGraphicsEnvironment()
                         .getDefaultScreenDevice()

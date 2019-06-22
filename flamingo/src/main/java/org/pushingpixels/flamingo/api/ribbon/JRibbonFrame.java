@@ -130,8 +130,10 @@ public class JRibbonFrame extends JFrame {
 
 			// Support placing heavyweight components in the ribbon frame. See
 			// http://today.java.net/article/2009/11/02/transparent-panel-mixing-heavyweight-and-lightweight-components.
+            // (Note: is this even needed in J8? Anyways, missing classes in later Java releases
+            //  should error and be caught.) - Juuxel)
 			try {
-				Class awtUtilitiesClass = Class
+				Class<?> awtUtilitiesClass = Class
 						.forName("com.sun.awt.AWTUtilities");
 				Method mSetComponentMixing = awtUtilitiesClass.getMethod(
 						"setComponentMixingCutoutShape", Component.class,
