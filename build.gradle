@@ -2,8 +2,10 @@ plugins {
   id 'com.jfrog.artifactory' version '4.9.0' apply false
 }
 
-group = 'io.github.cottonmc'
-version = '7.3.1-SNAPSHOT'
+allprojects {
+  group = 'io.github.cottonmc.insubstantial'
+  version = '7.3.1-SNAPSHOT'
+}
 
 if (JavaVersion.current().isJava8Compatible()) {
   allprojects {
@@ -19,8 +21,6 @@ subprojects {
   //apply plugin: 'signing'
   apply plugin: 'com.jfrog.artifactory'
 
-  group = 'io.github.cottonmc'
-  version = '7.3.1-SNAPSHOT'
   ext.versionKey = "7.3-destroyer"
 
   sourceCompatibility = 1.8
