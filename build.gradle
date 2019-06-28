@@ -1,4 +1,8 @@
-group = 'com.github.insubstantial'
+plugins {
+  id 'com.jfrog.artifactory' version '4.9.0' apply false
+}
+
+group = 'io.github.cottonmc'
 version = '7.3.1-SNAPSHOT'
 
 if (JavaVersion.current().isJava8Compatible()) {
@@ -12,9 +16,10 @@ if (JavaVersion.current().isJava8Compatible()) {
 subprojects {
   apply plugin: 'java'
   apply plugin: 'maven'
-  apply plugin: 'signing'
+  //apply plugin: 'signing'
+  apply plugin: 'com.jfrog.artifactory'
 
-  group = 'com.github.insubstantial'
+  group = 'io.github.cottonmc'
   version = '7.3.1-SNAPSHOT'
   ext.versionKey = "7.3-destroyer"
 
@@ -23,19 +28,24 @@ subprojects {
 
   configurations {
     maven { extendsFrom archives }
-    published { extendsFrom archives, signatures}
-    distro {extendsFrom runtime}
+    published { extendsFrom archives/*, signatures*/ }
+    distro { extendsFrom runtime }
   }
 
-  signing {
+  /*signing {
     required = { gradle.taskGraph.hasTask(uploadPublished) && !version.endsWith("SNAPSHOT") }
     sign configurations.archives
-  }
+  }*/
 
   repositories {
     maven { url 'https://oss.sonatype.org/content/groups/staging' }
     mavenCentral()
     maven { url new File(System.getProperty('user.home'), '.m2/repository').toURI().toString() }
+  }
+
+  def privateGradle = rootProject.file('private.gradle')
+  if (privateGradle.exists()) {
+    apply from: privateGradle
   }
 
   task sourceJar(type: Jar) {
@@ -106,6 +116,26 @@ subprojects {
       }
     }
   }
+
+  artifactory {
+    contextUrl = "http://server.bbkr.space:8081/artifactory/"
+    publish {
+      repository {
+        if (project.version.toString().contains("SNAPSHOT")) {
+          repoKey = "libs-snapshot-local"
+        } else {
+          repoKey = "libs-release-local"
+        }
+
+        username = (!project.hasProperty("cottonArtifactoryUser")) ? System.getProperty("artifactoryUser") : cottonArtifactoryUser
+        password = (!project.hasProperty("cottonArtifactoryPassword")) ? System.getProperty("artifactoryPassword") : cottonArtifactoryPassword
+      }
+      defaults {
+        publishConfigs("published")
+      }
+    }
+  }
+
 }
 
 task githubDist(type: Zip) {

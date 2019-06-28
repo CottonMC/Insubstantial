@@ -22,7 +22,7 @@ dependencies {
   toolsCompile group: 'asm', name: 'asm-all', version: '2.2.3'
 }
 
-task augmentation(dependsOn: classes) {
+/*task augmentation(dependsOn: classes) {
   description = "Performs code augmentaiton for the laf-plugin and laf-widget libraries on the substance jar classes"
 
   doLast {
@@ -52,10 +52,10 @@ task augmentation(dependsOn: classes) {
       containerghosting(className: "org.pushingpixels.substance.flamingo.ribbon.ui.SubstanceRibbonButtonUI", toInjectAfterOriginal: "true")
     }
   }
-}
+}*/
 
 jar {
-  dependsOn augmentation
+  //dependsOn augmentation
   //dependsOn toolsClasses
 
   manifest {
@@ -70,7 +70,7 @@ jar {
 }
 
 task liteJar(type: Jar) {
-  dependsOn augmentation
+  //dependsOn augmentation
 
   classifier = 'lite'
 
